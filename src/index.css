@@ -1,0 +1,175 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #ffae00;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark {
+  background-color: #1e1e1e;
+  color: rgb(0, 0, 0);
+}
+
+.App {
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+body.dark .App {
+  background-color: #2a2a2a;
+}
+
+h1 {
+  text-align: center;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  margin: 5px 0;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: bold;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.btn-agregar {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.todo-item {
+  background-color: #f0f0f0;
+  padding: 15px;
+  margin: 10px 0;
+  border-left: 10px solid #bbb;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.todo-item-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.todo-item strong {
+  font-size: 18px;
+  flex-grow: 1;
+}
+
+.todo-item p {
+  margin: 0;
+  word-break: break-word;
+}
+
+.todo-item small {
+  color: #555;
+}
+
+.todo-item button {
+  background-color: #e53935;
+  color: white;
+  border-radius: 6px;
+  padding: 6px 12px;
+  border: none;
+  align-self: flex-start;
+}
+
+.todo-item input[type="checkbox"] {
+  transform: scale(1.3);
+  cursor: pointer;
+}
+
+.prioridad-alta {
+  border-left-color: #e53935;
+}
+
+.prioridad-media {
+  border-left-color: #fbc02d;
+}
+
+.prioridad-baja {
+  border-left-color: #43a047;
+}
+
+.filter-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.filter-buttons button {
+  flex: 1;
+  margin: 5px;
+  background-color: #e0e0e0;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.filter-buttons button.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.modo-btn {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.labels {
+  font-size: 14px;
+  color: #333;
+}
+
+.labels span {
+  background-color: #ddd;
+  border-radius: 12px;
+  padding: 3px 10px;
+  margin-right: 6px;
+  display: inline-block;
+  margin-bottom: 4px;
+  cursor: default;
+  user-select: none;
+}
