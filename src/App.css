@@ -1,88 +1,450 @@
-/* Contenedor principal */
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #e0f0ff, #a0c4ff);
+/* App.css - Estilos llamativos para la aplicación de tareas */
+
+:root {
+  --color-primary: #6366f1;
+  --color-primary-dark: #4f46e5;
+  --color-secondary: #ec4899;
+  --color-bg: #f8fafc;
+  --color-text: #1e293b;
+  --color-gray-light: #e2e8f0;
+  --color-gray: #94a3b8;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+  --color-task-bg: #ffffff;
+  --radius: 12px;
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --transition: all 0.3s ease;
+}
+
+body {
+  background: linear-gradient(135deg, #f6f7ff 0%, #e9ebfd 100%);
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: var(--color-text);
+  line-height: 1.5;
   min-height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* Contenedor principal */
+.app-container {
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+/* Tarjeta principal */
+.app-card {
+  max-width: 1000px;
+  margin: 0 auto;
+  background: var(--color-task-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  position: relative;
+}
+
+.app-header {
+  background: linear-gradient(60deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  padding: 2rem;
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  position: relative;
+  z-index: 2;
+}
+
+.app-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: var(--color-task-bg);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  transform: translateY(20px);
+}
+
+.app-content {
+  padding: 1.5rem;
+}
+
+/* Formulario para agregar tareas */
+.new-task-form {
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 1rem;
+  position: relative;
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background: white;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+.new-task-form:focus-within {
+  box-shadow: var(--shadow-md);
+}
+
+input, select, button {
+  border-radius: var(--radius);
+  border: 2px solid var(--color-gray-light);
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: var(--transition);
+  outline: none;
+}
+
+input:focus, select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+.add-button {
+  background: linear-gradient(45deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.add-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.add-button:active {
+  transform: translateY(0);
+}
+
+.add-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.add-button:hover::after {
+  opacity: 1;
+}
+
+/* Filtros */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.filter-button {
+  background: var(--color-gray-light);
+  color: var(--color-text);
+  border: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  border-radius: 50px;
+  font-weight: 500;
+}
+
+.filter-button:hover {
+  background: var(--color-gray);
+  color: white;
+}
+
+.filter-button.active {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* Lista de tareas */
+.tasks-list {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
-/* Logo base */
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter, transform;
-  transition: filter 0.35s ease, transform 0.35s ease;
-  cursor: pointer;
-  filter: drop-shadow(0 0 8px rgba(100, 108, 255, 0.4));
-  border-radius: 12px;
+.task-item {
+  background: var(--color-task-bg);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem;
+  transition: var(--transition);
+  border-left: 4px solid var(--color-primary);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Hover del logo general */
-.logo:hover {
-  filter: drop-shadow(0 0 24px #646cffcc);
-  transform: scale(1.15) rotate(7deg);
+.task-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
-/* Estilo específico para logo React */
-.logo.react {
-  filter: drop-shadow(0 0 8px rgba(97, 218, 251, 0.6));
+.task-item.completed {
+  border-left-color: var(--color-success);
+  background-color: rgba(16, 185, 129, 0.05);
 }
 
-.logo.react:hover {
-  filter: drop-shadow(0 0 30px #61dafbcc);
-  transform: scale(1.15) rotate(-7deg);
+.task-item.overdue {
+  border-left-color: var(--color-danger);
 }
 
-/* Animación de giro para logo dentro de segundo link */
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-/* Tarjetas */
-.card {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 2em;
-  background: white;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  border-radius: 16px;
-  transition: box-shadow 0.4s ease;
-}
-
-.card:hover {
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
-}
-
-/* Texto para docs */
-.read-the-docs {
-  color: #555;
-  font-size: 1rem;
+.task-title {
+  font-size: 1.1rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  margin-top: 1.2rem;
-  transition: color 0.3s ease;
-  user-select: none;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
 }
 
-.read-the-docs:hover {
-  color: #3b82f6; /* azul vivo */
+.task-checkbox {
+  appearance: none;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 2px solid var(--color-gray);
+  border-radius: 4px;
+  margin-right: 0.75rem;
+  position: relative;
   cursor: pointer;
+  transition: var(--transition);
+}
+
+.task-checkbox:checked {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.task-checkbox:checked::after {
+  content: '✓';
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+}
+
+.task-title-text {
+  transition: var(--transition);
+}
+
+.task-completed .task-title-text {
+  text-decoration: line-through;
+  color: var(--color-gray);
+}
+
+.task-overdue-badge {
+  background-color: var(--color-danger);
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 50px;
+  margin-left: 0.75rem;
+  font-weight: 700;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.task-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--color-gray);
+}
+
+.task-detail {
+  display: flex;
+  align-items: center;
+}
+
+.task-detail-label {
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+.priority-badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.priority-low {
+  background-color: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+}
+
+.priority-medium {
+  background-color: rgba(245, 158, 11, 0.1);
+  color: var(--color-warning);
+}
+
+.priority-high {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--color-danger);
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.task-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.edit-button {
+  color: var(--color-primary);
+}
+
+.edit-button:hover {
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.delete-button {
+  color: var(--color-danger);
+}
+
+.delete-button:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Modo de edición */
+.edit-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.save-button {
+  background-color: var(--color-success);
+  color: white;
+  border: none;
+  flex: 1;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #0ca678;
+}
+
+.cancel-button {
+  background-color: var(--color-gray);
+  color: white;
+  border: none;
+  flex: 1;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-button:hover {
+  background-color: #64748b;
+}
+
+/* Mensaje de no tareas */
+.no-tasks {
+  text-align: center;
+  padding: 2rem;
+  color: var(--color-gray);
+  font-style: italic;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.task-item {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .new-task-form {
+    grid-template-columns: 1fr;
+  }
+  
+  .task-details {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .new-task-form {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+  
+  .filters {
+    justify-content: center;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-gray-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-dark);
 }
